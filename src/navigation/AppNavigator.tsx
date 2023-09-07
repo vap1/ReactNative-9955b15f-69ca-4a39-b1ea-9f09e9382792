@@ -2,10 +2,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { LoginScreen } from '../screens/LoginScreen';
-import { RegistrationScreen } from '../screens/RegistrationScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
-import { AdminUserDetailsScreen } from '../screens/AdminUserDetailsScreen';
+import RegistrationScreen from '../screens/RegistrationScreen';
+import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import AdminUserDetailsScreen from '../screens/AdminUserDetailsScreen';
 
 const Stack = createStackNavigator();
 
