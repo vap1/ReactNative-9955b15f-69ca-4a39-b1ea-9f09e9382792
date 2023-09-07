@@ -8,14 +8,15 @@ const RegistrationForm = () => {
   const [password, setPassword] = useState('');
 
   const handleRegistration = () => {
-    console.log('Submitting registration form...');
+    console.log('Step 2: User submits the registration form');
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Password:', password);
 
-    // Perform registration API call here
+    // Perform registration logic here
 
-    console.log('Registration form submitted successfully!');
+    console.log('Registration successful');
+    console.log('Redirecting to Login Screen');
   };
 
   return (
