@@ -18,15 +18,24 @@ const App = () => {
     console.log('App started');
   }, []);
 
-  const handleUserRegistration = (request: UserRegistrationRequest) => {
-    console.log('User registration request:', request);
-    // Make API call to register user
-    // ...
-    const response: UserRegistrationResponse = {
-      success: true,
-      message: 'User registered successfully',
-    };
-    console.log('User registration response:', response);
+  const handleUserRegistration = async (request: UserRegistrationRequest) => {
+    try {
+      console.log('Registering user:', request);
+
+      // Make API call to register user
+      // ...
+
+      const response: UserRegistrationResponse = {
+        success: true,
+        message: 'User registered successfully',
+      };
+
+      console.log('User registration response:', response);
+      return response;
+    } catch (error) {
+      console.error('Error occurred during user registration:', error);
+      throw error;
+    }
   };
 
   return (
