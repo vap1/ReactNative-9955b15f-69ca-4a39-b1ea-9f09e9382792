@@ -58,11 +58,11 @@ export const UserProvider: React.FC = ({ children }) => {
     if (response.success) {
       console.log('Setting user:', request);
       setUser((prevUser) => ({
-        ...prevUser,
-        name: request.name || prevUser?.name,
-        contactInfo: request.contactInfo || prevUser?.contactInfo,
-        address: request.address || prevUser?.address,
-        profilePicture: request.profilePicture || prevUser?.profilePicture,
+        ...prevUser!,
+        name: request.name || prevUser!.name,
+        contactInfo: request.contactInfo || prevUser!.contactInfo,
+        address: request.address || prevUser!.address,
+        profilePicture: request.profilePicture || prevUser!.profilePicture,
       }));
     }
     return response;
