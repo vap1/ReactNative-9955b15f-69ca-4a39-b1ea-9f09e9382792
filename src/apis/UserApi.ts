@@ -1,5 +1,5 @@
 
-import { UserRegistrationRequest, UserRegistrationResponse } from '../types/Types';
+import { UserRegistrationRequest, UserRegistrationResponse, UserLoginRequest, UserLoginResponse } from '../types/Types';
 
 export const registerUser = async (request: UserRegistrationRequest): Promise<UserRegistrationResponse> => {
   try {
@@ -15,6 +15,28 @@ export const registerUser = async (request: UserRegistrationRequest): Promise<Us
     return response;
   } catch (error) {
     console.error('Error occurred during user registration:', error);
+    throw error;
+  }
+};
+
+export const loginUser = async (request: UserLoginRequest): Promise<UserLoginResponse> => {
+  try {
+    console.log('Sending login request to the server...');
+    console.log('Request:', request);
+
+    // Simulating API call and generating random data
+    const response: UserLoginResponse = {
+      success: true,
+      message: 'Login successful',
+      token: 'random_token',
+    };
+
+    console.log('Received login response from the server...');
+    console.log('Response:', response);
+
+    return response;
+  } catch (error) {
+    console.error('Error occurred while logging in:', error);
     throw error;
   }
 };
