@@ -2,26 +2,25 @@
 import React, { useState, useContext } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { UserContext } from '../contexts/UserContext';
-import { ProfileApi } from '../apis/ProfileApi';
 import { UserProfileUpdateRequest } from '../types/Types';
 
 const ProfileForm: React.FC = () => {
   const { user, updateUserProfile } = useContext(UserContext);
-  const [name, setName] = useState(user.name);
-  const [contactInfo, setContactInfo] = useState(user.contactInfo);
-  const [address, setAddress] = useState(user.address);
+  const [name, setName] = useState<string>(user?.name || '');
+  const [contactInfo, setContactInfo] = useState<string>(user?.contactInfo || '');
+  const [address, setAddress] = useState<string>(user?.address || '');
 
   const handleSave = async () => {
     console.log('Saving profile...');
     const request: UserProfileUpdateRequest = {
-      token: user.token,
+      token: user?.token || '',
       name,
       contactInfo,
       address,
     };
 
     try {
-      const response = await ProfileApi.updateUserProfile(request);
+      const response = await updateUserProfile(request);
       if (response.success) {
         console.log('Profile saved successfully!');
         updateUserProfile(response.user);
