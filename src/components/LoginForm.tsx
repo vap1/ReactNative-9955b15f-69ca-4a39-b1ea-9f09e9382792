@@ -7,7 +7,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Logging in...');
+    console.log('Step 1: Logging in...');
     console.log('Email:', email);
     console.log('Password:', password);
 
@@ -23,7 +23,7 @@ const LoginForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Login response:', data);
+        console.log('Step 2: Login response:', data);
         // Handle login response here
       })
       .catch((error) => {
