@@ -1,7 +1,7 @@
 
 import React, { createContext, useState } from 'react';
 import { UserRegistrationRequest, UserRegistrationResponse, UserLoginRequest, UserLoginResponse, UserProfileRequest, UserProfileResponse, UserProfileUpdateRequest, UserProfileUpdateResponse } from '../types/Types';
-import { registerUser, loginUser, getUserProfile, updateUserProfile } from '../apis/UserApi';
+import { registerUser, loginUser, getUserProfile } from '../apis/UserApi';
 
 interface UserContextProps {
   user: UserProfileResponse | null;
@@ -16,10 +16,12 @@ export const UserContext = createContext<UserContextProps>({
   registerUser: async () => ({ success: false, message: '' }),
   loginUser: async () => ({ success: false, message: '', token: '' }),
   getUserProfile: async () => ({ user: { name: '', email: '', contactInfo: '', address: '', profilePicture: '' } }),
-  updateUserProfile: async () => ({ success: false, message: '' }),
+  updateUserProfile: function (request: UserProfileUpdateRequest): Promise<UserProfileUpdateResponse> {
+    throw new Error('Function not implemented.');
+  }
 });
 
-export const UserProvider: React.FC = ({ children }) => {
+export const UserContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserProfileResponse | null>(null);
 
   const handleRegisterUser = async (request: UserRegistrationRequest) => {
@@ -66,28 +68,6 @@ export const UserProvider: React.FC = ({ children }) => {
     }
   };
 
-  const handleUpdateUserProfile = async (request: UserProfileUpdateRequest) => {
-    console.log('Updating user profile:', request);
-    try {
-      const response = await updateUserProfile(request);
-      console.log('Update profile response:', response);
-      if (response.success) {
-        console.log('Setting user:', request);
-        setUser((prevUser) => ({
-          ...(prevUser as UserProfileResponse),
-          name: request.name || (prevUser as UserProfileResponse).name,
-          contactInfo: request.contactInfo || (prevUser as UserProfileResponse).contactInfo,
-          address: request.address || (prevUser as UserProfileResponse).address,
-          profilePicture: request.profilePicture || (prevUser as UserProfileResponse).profilePicture,
-        }));
-      }
-      return response;
-    } catch (error) {
-      console.error('Failed to update user profile:', error);
-      throw error;
-    }
-  };
-
   return (
     <UserContext.Provider
       value={{
@@ -95,7 +75,6 @@ export const UserProvider: React.FC = ({ children }) => {
         registerUser: handleRegisterUser,
         loginUser: handleLoginUser,
         getUserProfile: handleGetUserProfile,
-        updateUserProfile: handleUpdateUserProfile,
       }}
     >
       {children}

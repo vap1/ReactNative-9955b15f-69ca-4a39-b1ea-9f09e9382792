@@ -56,4 +56,6 @@ export interface AdminUserDetailsRequest {
 
 export interface AdminUserDetailsResponse {
   users: User[];
+  success: boolean;
+  message?: string;
 }

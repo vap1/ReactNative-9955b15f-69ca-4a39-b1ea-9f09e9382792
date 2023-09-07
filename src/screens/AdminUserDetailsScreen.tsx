@@ -1,15 +1,15 @@
 
 import React, { useEffect, useContext } from 'react';
 import { View, Text } from 'react-native';
-import { AdminUserDetailsContext } from '../contexts/AdminUserDetailsContext';
+import { AdminContext } from '../contexts/AdminContext';
 import { User } from '../types/Types';
 
 const AdminUserDetailsScreen: React.FC = () => {
-  const { users, getUsers } = useContext(AdminUserDetailsContext);
+  const { users, loading, error, fetchAdminUserDetails } = useContext(AdminContext);
 
   useEffect(() => {
     console.log('Fetching admin user details...');
-    getUsers();
+    fetchAdminUserDetails();
   }, []);
 
   console.log('Admin User Details:', users);
