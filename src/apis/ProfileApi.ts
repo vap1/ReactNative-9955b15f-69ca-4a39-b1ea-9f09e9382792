@@ -1,5 +1,5 @@
 
-import { UserProfileRequest, UserProfileResponse, UserProfileUpdateRequest, UserProfileUpdateResponse } from '../types/Types';
+import { UserProfileRequest, UserProfileResponse, UserProfileUpdateRequest, UserProfileUpdateResponse, User } from '../types/Types';
 
 export const getUserProfile = async (request: UserProfileRequest): Promise<UserProfileResponse> => {
   try {
