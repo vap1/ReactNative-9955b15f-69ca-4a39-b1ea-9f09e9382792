@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { UserContext } from '../contexts/UserContext';
-import { UserProfileUpdateRequest } from '../types/Types';
+import { UserProfileUpdateRequest, UserProfileUpdateResponse } from '../types/Types';
 
 const ProfileForm: React.FC = () => {
   const { user, updateUserProfile } = useContext(UserContext);
@@ -20,7 +20,10 @@ const ProfileForm: React.FC = () => {
     };
 
     try {
-      const response = await updateUserProfile(request);
+      console.log('Sending update profile request:', request);
+      const response: UserProfileUpdateResponse = await updateUserProfile(request);
+      console.log('Update profile response:', response);
+
       if (response.success) {
         console.log('Profile saved successfully!');
         updateUserProfile(response.user);
