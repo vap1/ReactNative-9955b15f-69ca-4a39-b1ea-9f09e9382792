@@ -16,6 +16,8 @@ const UserList: React.FC = () => {
       .catch((error) => console.log('Error fetching user details:', error));
   }, []);
 
+  console.log('User List:', users);
+
   return (
     <View>
       <Text>User List:</Text>
