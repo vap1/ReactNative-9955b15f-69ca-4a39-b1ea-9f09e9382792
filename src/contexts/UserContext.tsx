@@ -24,48 +24,68 @@ export const UserProvider: React.FC = ({ children }) => {
 
   const handleRegisterUser = async (request: UserRegistrationRequest) => {
     console.log('Registering user:', request);
-    const response = await registerUser(request);
-    console.log('Registration response:', response);
-    return response;
+    try {
+      const response = await registerUser(request);
+      console.log('Registration response:', response);
+      return response;
+    } catch (error) {
+      console.error('Error occurred during user registration:', error);
+      throw error;
+    }
   };
 
   const handleLoginUser = async (request: UserLoginRequest) => {
     console.log('Logging in user:', request);
-    const response = await loginUser(request);
-    console.log('Login response:', response);
-    if (response.success) {
-      console.log('Setting user:', response.user);
-      setUser(response.user);
+    try {
+      const response = await loginUser(request);
+      console.log('Login response:', response);
+      if (response.success) {
+        console.log('Setting user:', response.user);
+        setUser(response.user);
+      }
+      return response;
+    } catch (error) {
+      console.error('Error occurred while logging in:', error);
+      throw error;
     }
-    return response;
   };
 
   const handleGetUserProfile = async (request: UserProfileRequest) => {
     console.log('Getting user profile:', request);
-    const response = await getUserProfile(request);
-    console.log('User profile response:', response);
-    if (response.user) {
-      console.log('Setting user:', response.user);
-      setUser(response.user);
+    try {
+      const response = await getUserProfile(request);
+      console.log('User profile response:', response);
+      if (response.user) {
+        console.log('Setting user:', response.user);
+        setUser(response.user);
+      }
+      return response;
+    } catch (error) {
+      console.error('Failed to retrieve user profile:', error);
+      throw error;
     }
-    return response;
   };
 
   const handleUpdateUserProfile = async (request: UserProfileUpdateRequest) => {
     console.log('Updating user profile:', request);
-    const response = await updateUserProfile(request);
-    console.log('Update profile response:', response);
-    if (response.success) {
-      console.log('Setting user:', request);
-      setUser((prevUser) => ({
-        ...prevUser!,
-        name: request.name || prevUser!.name,
-        contactInfo: request.contactInfo || prevUser!.contactInfo,
-        address: request.address || prevUser!.address,
-        profilePicture: request.profilePicture || prevUser!.profilePicture,
-      }));
+    try {
+      const response = await updateUserProfile(request);
+      console.log('Update profile response:', response);
+      if (response.success) {
+        console.log('Setting user:', request);
+        setUser((prevUser) => ({
+          ...(prevUser as UserProfileResponse),
+          name: request.name || (prevUser as UserProfileResponse).name,
+          contactInfo: request.contactInfo || (prevUser as UserProfileResponse).contactInfo,
+          address: request.address || (prevUser as UserProfileResponse).address,
+          profilePicture: request.profilePicture || (prevUser as UserProfileResponse).profilePicture,
+        }));
+      }
+      return response;
+    } catch (error) {
+      console.error('Failed to update user profile:', error);
+      throw error;
     }
-    return response;
   };
 
   return (
