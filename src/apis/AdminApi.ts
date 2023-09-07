@@ -1,11 +1,12 @@
 
-import { AdminUserDetailsRequest, AdminUserDetailsResponse } from '../types/Types';
+import { AdminUserDetailsRequest, AdminUserDetailsResponse, User } from '../types/Types';
 
 export const getAdminUserDetails = async (request: AdminUserDetailsRequest): Promise<AdminUserDetailsResponse> => {
   try {
     console.log('Calling getAdminUserDetails API');
+
     // Simulating API call and generating random data
-    const users = generateRandomUsers();
+    const users: User[] = generateRandomUsers();
 
     console.log('getAdminUserDetails API response:', users);
     return { users, success: true };
