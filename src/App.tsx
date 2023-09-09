@@ -17,7 +17,7 @@ const App = () => {
   }, []);
 
   return (
-    // <NavigationContainer>
+    <NavigationContainer>
       <UserContextProvider>
         <AdminContextProvider>
           <Stack.Navigator>
@@ -34,7 +34,7 @@ const App = () => {
           </Stack.Navigator>
         </AdminContextProvider>
       </UserContextProvider>
-    // </NavigationContainer>
+    </NavigationContainer>
   );
 };
 

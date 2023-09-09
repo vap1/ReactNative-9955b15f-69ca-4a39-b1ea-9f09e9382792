@@ -13,7 +13,6 @@ const AppNavigator = () => {
   console.log('Initializing AppNavigator');
 
   return (
-    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Registration"
@@ -36,7 +35,6 @@ const AppNavigator = () => {
           options={{ title: 'Admin User Details' }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

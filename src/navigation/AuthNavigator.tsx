@@ -12,7 +12,6 @@ const AuthNavigator = () => {
   console.log('AuthNavigator: Initializing AuthNavigator');
 
   return (
-    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Registration"
@@ -30,7 +29,6 @@ const AuthNavigator = () => {
           options={{ title: 'Profile' }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 
