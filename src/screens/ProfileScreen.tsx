@@ -19,6 +19,11 @@ const ProfileScreen: React.FC = () => {
 
     console.log('Step 2: User retrieves their profile information');
 
+    if (getUserProfile === undefined) {
+      console.error("getUserProfile is undefined");
+      return;
+    }
+
     getUserProfile(userProfileRequest)
       .then((response: UserProfileResponse) => {
         console.log('Step 3: User receives the profile information');

@@ -26,6 +26,7 @@ export const loginUser = async (request: UserLoginRequest): Promise<UserLoginRes
 
     // Simulating API call and generating random data
     const response: UserLoginResponse = {
+      user: generateRandomUserProfile(),
       success: true,
       message: 'Login successful',
       token: 'random_token',
@@ -50,7 +51,7 @@ export const getUserProfile = async (request: UserProfileRequest): Promise<UserP
     const userProfile = generateRandomUserProfile();
 
     console.log('User profile retrieved successfully:', userProfile);
-    return { user: userProfile };
+    return { user: userProfile, success:true };
   } catch (error) {
     console.error('Failed to retrieve user profile:', error);
     throw error;

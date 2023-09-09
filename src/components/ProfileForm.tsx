@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/UserContext';
 import { UserProfileUpdateRequest, UserProfileUpdateResponse } from '../types/Types';
 
 const ProfileForm: React.FC = () => {
-  const { user, updateUserProfile } = useContext(UserContext);
+  const { user, token, updateUserProfile } = useContext(UserContext);
   const [name, setName] = useState<string>(user?.name || '');
   const [contactInfo, setContactInfo] = useState<string>(user?.contactInfo || '');
   const [address, setAddress] = useState<string>(user?.address || '');
@@ -13,7 +13,7 @@ const ProfileForm: React.FC = () => {
   const handleSave = async () => {
     console.log('Saving profile...');
     const request: UserProfileUpdateRequest = {
-      token: user?.token || '',
+      token: token || '',
       name,
       contactInfo,
       address,
@@ -21,17 +21,20 @@ const ProfileForm: React.FC = () => {
 
     try {
       console.log('Sending update profile request:', request);
-      const response: UserProfileUpdateResponse = await updateUserProfile(request);
+      let response: UserProfileUpdateResponse;
+      if (updateUserProfile) {
+        response = await updateUserProfile(request);
+      } else {
+        throw new Error("updateUserProfile is null");
+      }
       console.log('Update profile response:', response);
-
       if (response.success) {
         console.log('Profile saved successfully!');
-        updateUserProfile(response.user);
       } else {
         console.log('Failed to save profile:', response.message);
       }
     } catch (error) {
-      console.log('Error saving profile:', error.message);
+      console.log('Error saving profile:', error);
     }
   };
 

@@ -3,26 +3,28 @@ import React, { createContext, useState, useEffect } from 'react';
 import { AdminUserDetailsRequest, AdminUserDetailsResponse, User } from '../types/Types';
 import { getAdminUserDetails } from '../apis/AdminApi';
 
-interface AdminContextProps {
-  users: User[];
-  loading: boolean;
-  error: string | null;
-  fetchAdminUserDetails: () => void;
+interface AdminContextProps  extends React.PropsWithChildren {
+  users?: User[];
+  loading?: boolean;
+  error?: string | null;
+  fetchAdminUserDetails?: () => Promise<AdminUserDetailsResponse>;
 }
 
 export const AdminContext = createContext<AdminContextProps>({
   users: [],
   loading: false,
   error: null,
-  fetchAdminUserDetails: () => {},
+  fetchAdminUserDetails: async () => {
+    throw new Error('Function not implemented.');
+  }
 });
 
-export const AdminContextProvider: React.FC = ({ children }) => {
+export const AdminContextProvider: React.FC<AdminContextProps> = ({ children }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchAdminUserDetails = () => {
+  const fetchAdminUserDetails = async () => {
     setLoading(true);
     setError(null);
 
@@ -32,17 +34,18 @@ export const AdminContextProvider: React.FC = ({ children }) => {
       token: 'YOUR_ADMIN_TOKEN',
     };
 
-    getAdminUserDetails(request)
-      .then((response: AdminUserDetailsResponse) => {
-        console.log('Admin user details fetched successfully:', response);
-        setUsers(response.users);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        console.error('Failed to fetch admin user details:', error.message);
-        setError('Failed to fetch admin user details');
-        setLoading(false);
-      });
+    try {
+      const response = await getAdminUserDetails(request);
+      console.log('Admin user details fetched successfully:', response);
+      setUsers(response.users);
+      setLoading(false);
+      return response;
+    } catch (error) {
+      console.error('Failed to fetch admin user details:', error);
+      setError('Failed to fetch admin user details');
+      setLoading(false);
+      throw error;
+    }
   };
 
   useEffect(() => {

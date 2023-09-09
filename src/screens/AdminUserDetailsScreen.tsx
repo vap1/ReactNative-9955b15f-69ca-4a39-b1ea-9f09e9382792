@@ -9,6 +9,10 @@ const AdminUserDetailsScreen: React.FC = () => {
 
   useEffect(() => {
     console.log('Fetching admin user details...');
+    if (fetchAdminUserDetails === undefined) {
+      console.error("fetchAdminUserDetails is undefined");
+      return;
+    }
     fetchAdminUserDetails();
   }, []);
 
@@ -17,7 +21,7 @@ const AdminUserDetailsScreen: React.FC = () => {
   return (
     <View>
       <Text>Admin User Details</Text>
-      {users.map((user: User) => (
+      {users?.map((user: User) => (
         <View key={user.email}>
           <Text>Name: {user.name}</Text>
           <Text>Email: {user.email}</Text>

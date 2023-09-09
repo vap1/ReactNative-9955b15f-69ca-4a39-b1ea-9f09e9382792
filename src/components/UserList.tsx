@@ -1,17 +1,19 @@
 
 import React, { useContext, useEffect } from 'react';
 import { View, Text } from 'react-native';
-import { UserContext } from '../contexts/UserContext';
 import { AdminContext } from '../contexts/AdminContext';
 import { User } from '../types/Types';
 
 const UserList: React.FC = () => {
-  const { users, getUsers } = useContext(UserContext);
-  const { isAdmin } = useContext(AdminContext);
+  const { users, fetchAdminUserDetails } = useContext(AdminContext);
 
   useEffect(() => {
     console.log('Fetching user details...');
-    getUsers()
+    if (fetchAdminUserDetails === undefined) {
+      console.error("fetchAdminUserDetails is undefined");
+      return;
+    }
+    fetchAdminUserDetails()
       .then(() => console.log('User details fetched successfully'))
       .catch((error) => console.log('Error fetching user details:', error));
   }, []);
@@ -21,7 +23,7 @@ const UserList: React.FC = () => {
   return (
     <View>
       <Text>User List:</Text>
-      {users.map((user: User) => (
+      {users?.map((user: User) => (
         <View key={user.email}>
           <Text>Name: {user.name}</Text>
           <Text>Email: {user.email}</Text>

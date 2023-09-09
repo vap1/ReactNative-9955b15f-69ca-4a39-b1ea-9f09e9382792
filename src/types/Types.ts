@@ -15,7 +15,7 @@ export interface UserRegistrationRequest {
 
 export interface UserRegistrationResponse {
   success: boolean;
-  message: string;
+  message?: string;
 }
 
 export interface UserLoginRequest {
@@ -24,9 +24,10 @@ export interface UserLoginRequest {
 }
 
 export interface UserLoginResponse {
+  user: User,
   success: boolean;
-  message: string;
-  token?: string;
+  message?: string;
+  token: string;
 }
 
 export interface UserProfileRequest {
@@ -35,6 +36,8 @@ export interface UserProfileRequest {
 
 export interface UserProfileResponse {
   user: User;
+  success: boolean;
+  message?: string;
 }
 
 export interface UserProfileUpdateRequest {
@@ -47,7 +50,7 @@ export interface UserProfileUpdateRequest {
 
 export interface UserProfileUpdateResponse {
   success: boolean;
-  message: string;
+  message?: string;
 }
 
 export interface AdminUserDetailsRequest {

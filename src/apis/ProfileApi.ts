@@ -10,7 +10,7 @@ export const getUserProfile = async (request: UserProfileRequest): Promise<UserP
     const userProfile = generateRandomUserProfile();
 
     console.log('Step 2: User profile retrieved successfully:', userProfile);
-    return { user: userProfile };
+    return { user: userProfile, success:true };
   } catch (error) {
     console.error('Failed to retrieve user profile:', error);
     throw error;
