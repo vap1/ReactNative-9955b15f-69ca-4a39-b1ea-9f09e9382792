@@ -51,11 +51,11 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
     }
     console.log('Redirecting to Profile(s) Screen');
     if (isAdmin) {
+      console.log('Redirecting to AdminUserDetailsScreen Screen');
+      navigation.navigate('AdminUserDetails');
+    } else {
       console.log('Redirecting to Profile Screen');
       navigation.navigate('Profile');
-    } else {
-      console.log('Redirecting to AdminUserDetailsScreen Screen');
-      navigation.navigate('AdminUserDetailsScreen');
     }
   };
 
