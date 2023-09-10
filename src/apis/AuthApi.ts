@@ -12,6 +12,7 @@ export const loginUser = async (request: UserLoginRequest): Promise<UserLoginRes
       success: true,
       message: 'Login successful',
       token: 'random_token',
+      isAdmin: false
     };
 
     console.log('Step 2: Received login response from the server...');
