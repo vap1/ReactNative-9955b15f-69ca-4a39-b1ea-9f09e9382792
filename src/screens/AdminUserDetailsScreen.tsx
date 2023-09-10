@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { AdminContext } from '../contexts/AdminContext';
 import { User } from '../types/Types';
 
-const AdminUserDetailsScreen: React.FC = () => {
+const AdminUserDetailsScreen = ({navigation}: {navigation: any}) => {
   const { users, loading, error, fetchAdminUserDetails } = useContext(AdminContext);
 
   useEffect(() => {

@@ -1,22 +1,36 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
+import { UserContext } from '../contexts/UserContext';
+import { UserRegistrationRequest } from '../types/Types';
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({navigation}: {navigation: any}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegistration = () => {
+  const { registerUser } = useContext(UserContext);
+
+  const handleRegistration = async () => {
     console.log('Step 2: User submits the registration form');
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Password:', password);
 
     // Perform registration logic here
-
+    if (registerUser === undefined) {
+      throw new Error('Undefined registerUser');
+    }
+    const userRegistrationRequest: UserRegistrationRequest = {
+      name: name,
+      email: email,
+      password: password
+    };
+    await registerUser(userRegistrationRequest);
     console.log('Registration successful');
+
     console.log('Redirecting to Login Screen');
+    navigation.navigate('Login');
   };
 
   return (

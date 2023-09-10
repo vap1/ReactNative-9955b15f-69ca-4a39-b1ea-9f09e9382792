@@ -21,11 +21,11 @@ const App = () => {
       <UserContextProvider>
         <AdminContextProvider>
           <Stack.Navigator>
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Auth"
               component={AuthNavigator}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen
               name="App"
               component={AppNavigator}

@@ -28,6 +28,7 @@ export interface UserLoginResponse {
   success: boolean;
   message?: string;
   token: string;
+  isAdmin: boolean;
 }
 
 export interface UserProfileRequest {

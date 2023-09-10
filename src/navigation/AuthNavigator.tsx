@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AdminUserDetailsScreen from '../screens/AdminUserDetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,11 @@ const AuthNavigator = () => {
           name="Profile"
           component={ProfileScreen}
           options={{ title: 'Profile' }}
+        />
+        <Stack.Screen
+          name="AdminUserDetails"
+          component={AdminUserDetailsScreen}
+          options={{ title: 'Admin User Details' }}
         />
       </Stack.Navigator>
   );

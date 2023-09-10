@@ -4,17 +4,14 @@ import { View, Text } from 'react-native';
 import { UserContext } from '../contexts/UserContext';
 import { UserProfileRequest, UserProfileResponse } from '../types/Types';
 
-const ProfileScreen: React.FC = () => {
-  const { getUserProfile } = useContext(UserContext);
+const ProfileScreen = ({navigation}: {navigation: any}) => {
+  const { user, token, getUserProfile } = useContext(UserContext);
 
   useEffect(() => {
     console.log('Step 1: User logs in to their account');
 
-    // Assuming you have a way to get the user's token after login
-    const token = 'user_token';
-
     const userProfileRequest: UserProfileRequest = {
-      token: token,
+      token: token!,
     };
 
     console.log('Step 2: User retrieves their profile information');
@@ -37,6 +34,11 @@ const ProfileScreen: React.FC = () => {
   return (
     <View>
       <Text>Profile Screen</Text>
+      <Text>Name: {user?.name}</Text>
+      <Text>Email: {user?.email}</Text>
+      <Text>Contact Info: {user?.contactInfo}</Text>
+      <Text>Address: {user?.address}</Text>
+      <Text>Profile Picture: {user?.profilePicture}</Text>
     </View>
   );
 };

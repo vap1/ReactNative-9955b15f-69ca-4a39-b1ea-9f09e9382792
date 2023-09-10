@@ -7,6 +7,7 @@ import { updateUserProfile } from '../apis/ProfileApi';
 interface UserContextProps extends PropsWithChildren {
   user?: User | null;
   token?: string | null;
+  isAdmin?: boolean;
   registerUser?: (request: UserRegistrationRequest) => Promise<UserRegistrationResponse>;
   loginUser?: (request: UserLoginRequest) => Promise<UserLoginResponse>;
   getUserProfile?: (request: UserProfileRequest) => Promise<UserProfileResponse>;
@@ -16,9 +17,16 @@ interface UserContextProps extends PropsWithChildren {
 export const UserContext = createContext<UserContextProps>({
   user: null,
   token: null,
-  registerUser: async () => ({ success: false, message: '' }),
-  loginUser: async () => ({ user: { name: '', email: '', contactInfo: '', address: '', profilePicture: '' }, success: false, message: '', token: '' }),
-  getUserProfile: async () => ({ user: { name: '', email: '', contactInfo: '', address: '', profilePicture: '' }, success:false }),
+  isAdmin: false,
+  registerUser: async () => {
+    throw new Error('Function not implemented.');
+  },
+  loginUser: async () => {
+    throw new Error('Function not implemented.');
+  },
+  getUserProfile: async () => {
+    throw new Error('Function not implemented.');
+  },
   updateUserProfile: async (request: UserProfileUpdateRequest) => {
     throw new Error('Function not implemented.');
   }
@@ -27,6 +35,7 @@ export const UserContext = createContext<UserContextProps>({
 export const UserContextProvider: React.FC<UserContextProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const handleRegisterUser = async (request: UserRegistrationRequest) => {
     console.log('Registering user:', request);
@@ -49,6 +58,7 @@ export const UserContextProvider: React.FC<UserContextProps> = ({ children }) =>
         console.log('Setting user:', response.user);
         setUser(response.user);
         setToken(response.token);
+        setIsAdmin(response.isAdmin);
       }
       return response;
     } catch (error) {
@@ -101,6 +111,7 @@ export const UserContextProvider: React.FC<UserContextProps> = ({ children }) =>
       value={{
         user,
         token,
+        isAdmin,
         registerUser: handleRegisterUser,
         loginUser: handleLoginUser,
         getUserProfile: handleGetUserProfile,
