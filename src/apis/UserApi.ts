@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import { UserRegistrationRequest, UserRegistrationResponse, UserLoginRequest, UserLoginResponse, UserProfileRequest, UserProfileResponse } from '../types/Types';
 
 export const registerUser = async (request: UserRegistrationRequest): Promise<UserRegistrationResponse> => {
@@ -24,19 +25,25 @@ export const loginUser = async (request: UserLoginRequest): Promise<UserLoginRes
     console.log('Sending login request to the server...');
     console.log('Request:', request);
 
-    // Simulating API call and generating random data
-    const response: UserLoginResponse = {
-      user: generateRandomUserProfile(),
-      success: true,
-      message: 'Login successful',
-      token: 'random_token',
-      isAdmin: false
+    var loginRequestConfig = {
+      method: 'get',
+      url: 'http://localhost:3000/login',
+      headers: { }
+    };
+    
+    var userLoginResponse: UserLoginResponse; 
+    try {
+      const response = await axios(loginRequestConfig);
+      console.log(JSON.stringify(response.data));
+      userLoginResponse = response.data;
+    } catch(error: unknown) {
+      console.log(error);
+      throw error;
     };
 
     console.log('Received login response from the server...');
-    console.log('Response:', response);
-
-    return response;
+    console.log('UserLoginResponse:', userLoginResponse);
+    return userLoginResponse;
   } catch (error) {
     console.error('Error occurred while logging in:', error);
     throw error;
