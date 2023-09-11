@@ -28,7 +28,10 @@ export const loginUser = async (request: UserLoginRequest): Promise<UserLoginRes
     var loginRequestConfig = {
       method: 'get',
       url: 'http://localhost:3000/login',
-      headers: { }
+      headers: { 
+        'Content-Type': "application/json",
+        'Accept': "application/json"
+      }
     };
     
     var userLoginResponse: UserLoginResponse; 
